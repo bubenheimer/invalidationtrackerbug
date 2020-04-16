@@ -34,10 +34,10 @@ public final class MainActivity extends Activity {
 
         final InvalidationTracker invalidationTracker = db.getInvalidationTracker();
         new Thread(() -> invalidationTracker.addObserver(
-                new InvalidationTracker.Observer("Counter2") {
+                new InvalidationTracker.Observer(Counter2.TABLE_NAME) {
                     @Override
                     public void onInvalidated(@NonNull Set<String> tables) {
-                        if (tables.contains("Counter2")) {
+                        if (tables.contains(Counter2.TABLE_NAME)) {
                             runOnUiThread(() -> textView.setText(Integer.toString(--i)));
                         }
                     }
