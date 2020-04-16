@@ -28,6 +28,7 @@ public final class MainActivity extends Activity {
                 .databaseBuilder(this, DB.class, "exploredb")
                 .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
 //                .setJournalMode(RoomDatabase.JournalMode.WRITE_AHEAD_LOGGING)
+                .enableMultiInstanceInvalidation()
                 .build();
 
         final TextView textView = findViewById(R.id.textview);
@@ -48,6 +49,7 @@ public final class MainActivity extends Activity {
         new Thread(() -> {
             while (true) {
                 db.counterDao().insert(new Counter(random.nextLong()));
+                SystemClock.sleep(1L);
                 db.counter2Dao().insert(new Counter2(random.nextLong()));
                 runOnUiThread(() -> textView.setText(Integer.toString(++i)));
 
